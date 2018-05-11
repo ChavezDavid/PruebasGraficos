@@ -17,6 +17,8 @@
 #include "Shader.h"
 #include "Modelo.h"
 #include "nave.h"
+#include "Camion.h"
+#include "Tortuga.h"
 
 using namespace std;
 
@@ -37,9 +39,8 @@ vec3 posicionCamara;
 mat4 vista;
 mat4 proyeccion;
 
-Modelo *camion;
-Modelo *cuadrado;
-Modelo *tortuga;
+Camion *camion;
+Tortuga *tortuga;
 
 Shader *shader;
 //Declaración de ventana
@@ -86,345 +87,23 @@ void actualizar() {
 		vec3(0.0f, 0.0f, 0.0f),		//Posicion del objetivo
 		vec3(0.0f, 1.0f, 0.0f));
 
-	//camion->vista = vista;
-	//cuadrado->vista = vista;
+	camion->vista = vista;
 	tortuga->vista = vista;
 };
 
 void dibujar() {
-	//cuadrado->dibujar(GL_TRIANGLES);
-	//camion->dibujar(GL_TRIANGLES);
+	camion->dibujar(GL_TRIANGLES);
 	tortuga->dibujar(GL_TRIANGLES);
 }
 
 void inicializarTortuga() {
-	tortuga = new Modelo();
-	srand(time(NULL));
-
-	//Caparazon arriba
-	tortuga->vertices.push_back({ vec4(-1.0f, 2.0f,-1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 2.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 2.0f,-1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(1.0f, 2.0f,-1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 2.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.8f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 2.0f,-1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 2.0f,-1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 2.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.8f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 2.0f,-1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 2.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 2.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 2.0f, -1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(1.0f, 2.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 2.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.8f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 2.0f, -1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 2.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 2.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.8f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 2.0f, -1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, 2.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.8f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, 2.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.8f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, 2.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.8f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, -4.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.8f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, -4.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.8f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, -4.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.8f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	//Caparazon abajo
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.0f,-1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.0f,-1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(1.0f, 0.0f,-1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 0.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 0.3f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.0f,-1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.0f,-1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 0.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 0.3f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.0f,-1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.0f, -1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(1.0f, 0.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 0.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 0.3f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.0f, -1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 0.0f, -1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 0.3f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.0f, -1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, 2.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 0.3f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, 2.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.0f, 2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 0.3f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, 2.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.3f, 1.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, -4.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 0.3f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 1.0f, -4.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(1.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 1.0f, -4.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 0.3f, -3.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 1.0f, -4.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-4.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(-1.0f, 0.3f, -3.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	//Cabeza
-	tortuga->vertices.push_back({ vec4(6.0f, 2.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 2.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 2.0f, 0.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(6.0f, 2.0f, -2.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(4.0f, 2.0f, 0.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	tortuga->vertices.push_back({ vec4(6.0f, 2.0f, 0.0f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
+	tortuga = new Tortuga();
 	tortuga->vista = vista;
 	tortuga->proyeccion = proyeccion;
 }
 
-void inicializarCuadrado() {
-	cuadrado = new Modelo();
-	srand(time(NULL));
-
-	cuadrado->vertices.push_back({ vec4(-1.0f, 1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, -1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, -1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, 1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, 1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, -1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-
-	cuadrado->vertices.push_back({ vec4(1.0f, 1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, -1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, -1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, 1.0f, -1.0f, 1.0f),vec4((float(float(rand() % 101))) / 100,(float(float(rand() % 101))) / 100,(float(float(rand() % 101))) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, -1.0f, -1.0f, 1.0f),vec4((float(float(rand() % 101))) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, 1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-
-	cuadrado->vertices.push_back({ vec4(1.0f, 1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, -1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, 1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, -1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, 1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, -1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-
-	cuadrado->vertices.push_back({ vec4(1.0f, 1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, 1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, 1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, 1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, 1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, 1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-
-	cuadrado->vertices.push_back({ vec4(-1.0f, -1.0f, -1.0f, 1.0f),vec4(float(rand() % 101) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, -1.0f, 1.0f, 1.0f),vec4((float(float(rand() % 101))) / 100,(float(float(rand() % 101))) / 100,(float(float(rand() % 101))) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, 1.0f, 1.0f, 1.0f),vec4((float(float(rand() % 101))) / 100,(float(float(rand() % 101))) / 100,(float(float(rand() % 101))) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, -1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, 1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, 1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-
-	cuadrado->vertices.push_back({ vec4(1.0f, -1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, -1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, -1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(1.0f, -1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, -1.0f, 1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-	cuadrado->vertices.push_back({ vec4(-1.0f, -1.0f, -1.0f, 1.0f),vec4((float(rand() % 101)) / 100,(float(rand() % 101)) / 100,(float(rand() % 101)) / 100,1.0f) });
-
-	cuadrado->vista = vista;
-	cuadrado->proyeccion = proyeccion;
-}
-
 void inicializarCamion() {
-	camion = new Modelo();
-	srand(time(NULL));
-
-	//caja
-	camion->vertices.push_back({ vec4(-3.0f, 2.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 2.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, 2.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, -1.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-
-	camion->vertices.push_back({ vec4(-3.0f, 2.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 2.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, 2.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, -1.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-
-	camion->vertices.push_back({ vec4(-3.0f, 2.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, 2.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 2.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, 2.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 2.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 2.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-
-	camion->vertices.push_back({ vec4(-3.0f, -1.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, -1.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, -1.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-
-	camion->vertices.push_back({ vec4(-3.0f, 2.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, 2.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, -1.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, 2.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, -1.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(-3.0f, -1.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-
-	camion->vertices.push_back({ vec4(0.5f, 2.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 2.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 2.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, 1.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, -2.0f, 1.0f),vec4(1.0f, 1.0f, 1.0f, 1.0f) });
-
-	//cabina
-	camion->vertices.push_back({ vec4(0.5f, 1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, 1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, -1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, -1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	camion->vertices.push_back({ vec4(0.5f, 1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, 1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, -1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, -1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	camion->vertices.push_back({ vec4(0.5f, 1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, 1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, 1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, 1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, -1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, -1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, -1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	camion->vertices.push_back({ vec4(2.0f, 1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, 1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, -1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, 1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, -1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(2.0f, -1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	camion->vertices.push_back({ vec4(0.5f, 1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, 1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, -1.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-	camion->vertices.push_back({ vec4(0.5f, -1.0f, 0.5f, 1.0f),vec4(0.0f, 0.0f, 0.0f, 1.0f) });
-
-	//Llantas
-
+	camion = new Camion();
 	camion->vista = vista;
 	camion->proyeccion = proyeccion;
 }
@@ -483,9 +162,8 @@ int main()
 	inicializarvista();
 	inicializarproyeccion();
 
-	//inicializarCuadrado();
-	//inicializarCamion();
 	inicializarTortuga();
+	inicializarCamion();
 
 	//crear instancia del shader
 	const char * rutaVertex = "vShaderSimple.shader";
@@ -503,11 +181,8 @@ int main()
 	//Desenlazar el shader
 	shader->desenlazarShader();
 
-	//cuadrado->shader = shader;
-	//cuadrado->inicializarVertexArray(posicionID, colorID,modeloID,vistaID,proyeccionID);
-
-	//camion->shader = shader;
-	//camion->inicializarVertexArray(posicionID, colorID, modeloID, vistaID, proyeccionID);
+	camion->shader = shader;
+	camion->inicializarVertexArray(posicionID, colorID, modeloID, vistaID, proyeccionID);
 
 	tortuga->shader = shader;
 	tortuga->inicializarVertexArray(posicionID, colorID, modeloID, vistaID, proyeccionID);

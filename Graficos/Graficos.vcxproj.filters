@@ -36,6 +36,12 @@
     <ClInclude Include="nave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Camion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tortuga.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -51,6 +57,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Nave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tortuga.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

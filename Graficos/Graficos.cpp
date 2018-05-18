@@ -30,11 +30,13 @@ GLuint modeloID;
 GLuint vistaID;
 GLuint proyeccionID;
 
-float camaraX = 0.0f;
-float camaraY = 5.0f;
-float camaraZ = 10.0f;
+float camaraX = 12.0f;
+float camaraY = 30.0f;
+float camaraZ = 0.0f;
 
 vec3 posicionCamara;
+
+double tiempoAnterior;
 
 mat4 vista;
 mat4 proyeccion;
@@ -51,6 +53,9 @@ GLfloat ancho = 1024;
 GLfloat alto = 768;
 
 void actualizar() {
+	double tiempoActual = glfwGetTime();
+	double tiempoDelta = tiempoActual - tiempoAnterior;
+
 	int estadoderecha = glfwGetKey(window, GLFW_KEY_RIGHT);
 	if (estadoderecha == GLFW_PRESS) {
 		camaraX += 0.1f;
@@ -81,6 +86,25 @@ void actualizar() {
 		camaraZ -= 0.1f;
 	}
 
+	int estadoJ = glfwGetKey(window, GLFW_KEY_J);
+	if (estadoJ == GLFW_PRESS) {
+		camion->direccion = 1;
+	}
+	int estadoL = glfwGetKey(window, GLFW_KEY_L);
+	if (estadoL == GLFW_PRESS) {
+		camion->direccion = 0;
+	}
+	int estadoI = glfwGetKey(window, GLFW_KEY_I);
+	if (estadoI == GLFW_PRESS) {
+		camion->direccion = 2;
+	}
+	int estadoK = glfwGetKey(window, GLFW_KEY_K);
+	if (estadoK == GLFW_PRESS) {
+		camion->direccion = 3;
+	}
+
+	camion->mover(tiempoDelta);
+
 	posicionCamara = vec3(camaraX, camaraY, camaraZ);
 
 	vista = lookAt(posicionCamara, //Posicion de la camara
@@ -89,6 +113,8 @@ void actualizar() {
 
 	camion->vista = vista;
 	tortuga->vista = vista;
+
+	tiempoAnterior = tiempoActual;
 };
 
 void dibujar() {
@@ -189,6 +215,8 @@ int main()
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+
+	tiempoAnterior = glfwGetTime();
 
 	//Ciclo de dibujo
 	while (!glfwWindowShouldClose(window)) {

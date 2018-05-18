@@ -5,6 +5,12 @@
 
 class Camion : public Modelo {
 public:
+
+	vec3 coordenadas;
+	float angulo;
+	int direccion = 0;
+	float velocidad = 3;
 	Camion();
+	void mover(double tiempoDelta);
 
 };
